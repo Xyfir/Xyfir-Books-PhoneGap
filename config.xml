@@ -3,7 +3,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.xyfir.books"
-        version   = "1.4.0">
+        version   = "1.5.0">
 
     <name>Xyfir Books</name>
 
@@ -30,13 +30,8 @@
     <preference name="android-installLocation"    value="auto" />
 
     <!-- Core plugins -->
-    <plugin name="cordova-plugin-battery-status" />
-    <plugin name="cordova-plugin-camera" />
-    <plugin name="cordova-plugin-media-capture" />
     <plugin name="cordova-plugin-console" />
-    <plugin name="cordova-plugin-contacts" />
     <plugin name="cordova-plugin-device" />
-    <plugin name="cordova-plugin-device-motion" />
     <plugin name="cordova-plugin-device-orientation" />
     <plugin name="cordova-plugin-dialogs" />
     <plugin name="cordova-plugin-file" />
@@ -47,13 +42,11 @@
     <plugin name="cordova-plugin-media" />
     <plugin name="cordova-plugin-network-information" />
     <plugin name="cordova-plugin-splashscreen" />
-    <plugin name="cordova-plugin-vibration" />
     <plugin name="cordova-plugin-whitelist" />
 
     <!-- Platforms to build for -->
     <platform name="ios" />
     <platform name="android" />
-    <platform name="winphone" />
 
     <!-- Icons -->
     <icon src="icon.png" />
@@ -105,7 +98,7 @@
     <splash platform="ios" src="res/screens/ios/screen-ipad-portrait-2x.png" width="1536" height="2048" />
 
     <gap:config-file platform="ios" parent="CFBundleShortVersionString">
-        <string>1.4.0</string>
+        <string>1.5.0</string>
     </gap:config-file>
 
     <!-- A wildcard can be used to whitelist the entire network, over HTTP and HTTPS -->
