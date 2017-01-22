@@ -3,7 +3,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.xyfir.books"
-        version   = "1.5.1">
+        version   = "1.6.0">
 
     <name>xyBooks</name>
 
@@ -44,12 +44,15 @@
     <plugin name="cordova-plugin-splashscreen" />
     <plugin name="cordova-plugin-whitelist" />
 
+    <!-- Other plugins -->
+    <plugin name="cordova-plugin-inapppurchase" />
+
     <!-- Platforms to build for -->
     <platform name="ios" />
     <platform name="android" />
 
     <!-- Icons -->
-    <icon src="icon.png" />
+    <icon src="res/icons/icon.png" />
     
     <icon platform="ios" src="res/icons/ios/icon-small.png" width="29" height="29" />
     <icon platform="ios" src="res/icons/ios/icon-small-2x.png" width="58" height="58" />
@@ -82,7 +85,7 @@
     <icon platform="windows" src="res/icons/windows8/storelogo.png" width="50" height="50" />
 
     <!-- Splash screens -->
-    <splash src="splash.png" />
+    <splash src="res/screens/splash.png" />
 
     <splash platform="android" qualifier="ldpi" src="res/screens/android/screen-ldpi-portrait.png" />
     <splash platform="android" qualifier="mdpi" src="res/screens/android/screen-mdpi-portrait.png" />
@@ -97,9 +100,9 @@
     <splash platform="ios" src="res/screens/ios/screen-ipad-portrait.png" width="768" height="1024" />
     <splash platform="ios" src="res/screens/ios/screen-ipad-portrait-2x.png" width="1536" height="2048" />
 
-    <gap:config-file platform="ios" parent="CFBundleShortVersionString">
-        <string>1.5.1</string>
-    </gap:config-file>
+    <config-file platform="ios" parent="CFBundleShortVersionString">
+        <string>1.6.0</string>
+    </config-file>
 
     <!-- A wildcard can be used to whitelist the entire network, over HTTP and HTTPS -->
     <allow-navigation href="*" />
