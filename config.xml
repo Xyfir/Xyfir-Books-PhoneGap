@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <widget
-  xmlns:gap = "http://phonegap.com/ns/1.0"
-  version = "1.9.0"
-  xmlns = "http://www.w3.org/ns/widgets"
-  id = "com.xyfir.books"
+  xmlns:gap="http://phonegap.com/ns/1.0"
+  version="2.0.0"
+  xmlns="http://www.w3.org/ns/widgets"
+  id="com.xyfir.books"
 >
 
   <name>xyBooks</name>
@@ -19,7 +19,7 @@
 
   <!-- Preferences -->
   <preference name="permissions" value="none"/>
-  <preference name="orientation" value="default" />
+  <preference name="orientation" value="portrait" />
   <preference name="target-device" value="universal" />
   <preference name="fullscreen" value="true" />
   <preference name="webviewbounce" value="false" />
@@ -30,7 +30,6 @@
   <preference name="show-splash-screen-spinner" value="false" />
   <preference name="auto-hide-splash-screen" value="true" />
   <preference name="android-installLocation" value="auto" />
-  <preference name="CRIPageLoadPromptInterval" value="0" />
   <preference name="SplashMaintainAspectRatio" value="true" />
 
   <!-- Core plugins -->
@@ -47,9 +46,7 @@
   <plugin name="cordova-plugin-network-information" />
   <plugin name="cordova-plugin-splashscreen" />
   <plugin name="cordova-plugin-whitelist" />
-
-  <!-- Other plugins -->
-  <plugin name="cordova-plugin-remote-injection" />
+  <plugin name="cordova-plugin-statusbar" />
 
   <!-- Platforms to build for -->
   <platform name="ios" />
@@ -57,7 +54,7 @@
 
   <!-- Icons -->
   <icon src="icon.png" />
-  
+
   <platform name="android">
     <icon density="ldpi" src="res/icons/android/icon-36-ldpi.png" />
     <icon density="mdpi" src="res/icons/android/icon-48-mdpi.png" />
@@ -66,7 +63,7 @@
     <icon density="xxhdpi" src="res/icons/android/icon-144-xxhdpi.png" />
     <icon density="xxxhdpi" src="res/icons/android/icon-192-xxxhdpi.png" />
   </platform>
-  
+
   <platform name="ios">
     <icon height="29" src="res/icons/ios/icon-small.png" width="29" />
     <icon height="58" src="res/icons/ios/icon-small-2x.png" width="58" />
@@ -121,11 +118,22 @@
     <splash width="2048" height="2732" src="res/screens/ios/screen-ipad-portrait-ipadpro.png" />
   </platform>
 
+  <!-- Hide iOS status bar -->
+  <platform name="ios">
+    <preference name="Fullscreen" value="true" />
+    <config-file target="*-Info.plist" parent="UIStatusBarHidden">
+      <true />
+    </config-file>
+    <config-file target="*-Info.plist" parent="UIViewControllerBasedStatusBarAppearance">
+      <false />
+    </config-file>
+  </platform>
+
   <config-file platform="ios" parent="CFBundleShortVersionString">
-    <string>1.9.0</string>
+    <string>2.0.0</string>
   </config-file>
 
-  <!-- A wildcard can be used to whitelist the entire network, over HTTP and HTTPS -->
+  <!-- Whitelist the entire network, over HTTP and HTTPS -->
   <allow-navigation href="*" />
 
   <!-- Allow links to web pages to open in a browser -->
