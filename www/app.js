@@ -1,5 +1,156 @@
-function onDeviceReady() {
-  location.href = 'https://books.xyfir.com/app/#?phonegap=1';
+/**
+ * Obtain the `FileEntry` object for a specific file.
+ * @async
+ * @param {string} fileName
+ * @return {FileEntry}
+ */
+function getFileEntry(fileName) {
+  return new Promise((resolve, reject) =>
+    window.requestFileSystem(window.PERSISTENT, 0, fs =>
+      fs.root.getFile(
+        fileName,
+        // Creates a new file or returns already existing
+        // `exclusive: false` lets us overwrite the file later if we want
+        { create: true, exclusive: false },
+        fileEntry => resolve(fileEntry),
+        err => reject(err)
+      ),
+      err => reject(err)
+    )
+  );
+}
+
+/**
+ * Write text to a file.
+ * @async
+ * @param {string} fileName
+ * @param {string} text
+ * @return {FileEntry}
+ */
+function writeFile(fileName, text) {
+  return new Promise(async (resolve, reject) => {
+    const fileEntry = await getFileEntry(fileName);
+
+    fileEntry.createWriter(fileWriter => {
+      fileWriter.onwriteend = () => resolve(fileEntry);
+      fileWriter.onerror = err => reject(err);
+      fileWriter.write(new Blob([text], { type: 'text/plain' }));
+    });
+  });
+}
+
+/**
+ * Read text from a file.
+ * @async
+ * @param {string} fileName
+ * @return {string}
+ */
+function readFile(fileName) {
+  return new Promise(async (resolve, reject) => {
+    const fileEntry = await getFileEntry(fileName);
+
+    fileEntry.file(file => {
+      const reader = new FileReader;
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsText(file);
+    }, err => reject(err));
+  });
+}
+
+/**
+ * Called once Cordova APIs are available to use.
+ */
+async function onDeviceReady() {
+  const URL = 'http://192.168.0.11:2080';
+  const DEV = 'http://192.168.0.11:1337/vorlon.js';
+
+  // Load development script
+  if (DEV) {
+    const script = document.createElement('script');
+    script.src = DEV;
+    document.head.appendChild(script);
+  }
+
+  let js, css, version;
+
+  try {
+    // Attempt to load files from local storage
+    [js, css, version] = await Promise.all([
+      readFile('app.js'),
+      readFile('app.css'),
+      readFile('version.txt')
+    ]);
+  }
+  catch (err) {
+    console.error('Could not read file(s)', err);
+  }
+
+  // Check if needed files are available or if they can be obtained
+  if ((!js || !css) && !navigator.onLine) {
+    !js && console.error('Missing JS');
+    !css && console.error('Missing CSS');
+
+    return document.body.innerHTML = `
+      <div>
+        <h1>An internet connection is required to download needed updates.</h1>
+        <p>Once you have a reliable connection, please restart the app.</p>
+      </div>
+      <style>
+        body {
+          margin: 0;
+        }
+        div {
+          justify-content: center;
+          flex-direction: column;
+          font-family: monospace;
+          align-items: center;
+          text-align: center;
+          height: 100vh;
+          width: 100vw;
+          display: flex;
+        }
+      </style>
+    `;
+  }
+
+  // Download new files if local version does not match remote version
+  // or if certain files are missing
+  try {
+    let res = await fetch(`${URL}/api/version`);
+    res = await res.text();
+
+    // Download new versions
+    if (res != version) {
+      version = res;
+
+      res = await Promise.all([
+        fetch(`${URL}/static/js/App.js`),
+        fetch(`${URL}/static/css/app.css`)
+      ]),
+      res = await Promise.all([
+        res[0].text(),
+        res[1].text()
+      ]);
+
+      js = res[0], css = res[1], res = null;
+
+      // Write new files to local storage
+      writeFile('app.js', js);
+      writeFile('app.css', css);
+      writeFile('version.txt', version);
+    }
+  }
+  // Do nothing, use old version
+  catch (err) {
+    console.error('Could not download/write files', err);
+  }
+
+  // Prepare HTML and insert JS/CSS
+  document.body.innerHTML = `
+    <main id='content'></main>
+    <style>${css}</style>
+    <script>${js}</script>
+  `;
 }
 
 document.addEventListener('deviceready', onDeviceReady, false);
