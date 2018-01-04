@@ -61,11 +61,17 @@ function readFile(fileName) {
  * Called once Cordova APIs are available to use.
  */
 async function onDeviceReady() {
+  console.log('Device is ready');
+
+  window.StatusBar.hide();
+
   const URL = 'http://192.168.0.11:2080';
   const DEV = 'http://192.168.0.11:1337/vorlon.js';
 
   // Load development script
   if (DEV) {
+    console.log('Loading dev script');
+
     const script = document.createElement('script');
     script.src = DEV;
     document.head.appendChild(script);
@@ -74,6 +80,8 @@ async function onDeviceReady() {
   let js, css, version;
 
   try {
+    console.log('Reading local files');
+
     // Attempt to load files from local storage
     [js, css, version] = await Promise.all([
       readFile('app.js'),
@@ -116,12 +124,16 @@ async function onDeviceReady() {
   // Download new files if local version does not match remote version
   // or if certain files are missing
   try {
+    console.log('Checking current remote version');
+
     let res = await fetch(`${URL}/api/version`);
     res = await res.text();
 
     // Download new versions
     if (res != version) {
       version = res;
+
+      console.log('Downloading new files');
 
       res = await Promise.all([
         fetch(`${URL}/static/js/App.js`),
@@ -135,6 +147,8 @@ async function onDeviceReady() {
       js = res[0], css = res[1], res = null;
 
       // Write new files to local storage
+      console.log('Writing new files');
+
       writeFile('app.js', js);
       writeFile('app.css', css);
       writeFile('version.txt', version);
@@ -146,6 +160,8 @@ async function onDeviceReady() {
   }
 
   // Insert files
+  console.log('Inserting files', css.length, js.length);
+
   const link = document.createElement('link');
   link.href = URL.createObjectURL(new Blob([css], { type: 'text/css' }));
   link.rel = 'stylesheet';
