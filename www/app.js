@@ -163,12 +163,16 @@ async function onDeviceReady() {
   console.log('Inserting files', css.length, js.length);
 
   const link = document.createElement('link');
-  link.href = URL.createObjectURL(new Blob([css], { type: 'text/css' }));
+  link.href = window.URL.createObjectURL(
+    new Blob([css], { type: 'text/css' })
+  );
   link.rel = 'stylesheet';
   document.head.appendChild(link);
 
   const script = document.createElement('script');
-  script.src = URL.createObjectURL(new Blob([js], { type: 'text/javascript' }));
+  script.src = window.URL.createObjectURL(
+    new Blob([js], { type: 'text/javascript' })
+  );
   document.head.appendChild(script);
 }
 
