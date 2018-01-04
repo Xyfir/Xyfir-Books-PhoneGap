@@ -2,7 +2,7 @@
 
 <widget
   xmlns:gap="http://phonegap.com/ns/1.0"
-  version="2.0.2"
+  version="2.0.3"
   xmlns="http://www.w3.org/ns/widgets"
   id="com.xyfir.books"
 >
@@ -121,19 +121,8 @@
     <splash width="2048" height="2732" src="res/screens/ios/screen-ipad-portrait-ipadpro.png" />
   </platform>
 
-  <!-- Hide iOS status bar -->
-  <platform name="ios">
-    <preference name="Fullscreen" value="true" />
-    <config-file target="*-Info.plist" parent="UIStatusBarHidden">
-      <true />
-    </config-file>
-    <config-file target="*-Info.plist" parent="UIViewControllerBasedStatusBarAppearance">
-      <false />
-    </config-file>
-  </platform>
-
   <config-file platform="ios" parent="CFBundleShortVersionString">
-    <string>2.0.2</string>
+    <string>2.0.3</string>
   </config-file>
 
   <!-- Whitelist the entire network, over HTTP and HTTPS -->
