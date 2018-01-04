@@ -145,12 +145,15 @@ async function onDeviceReady() {
     console.error('Could not download/write files', err);
   }
 
-  // Prepare HTML and insert JS/CSS
-  document.body.innerHTML = `
-    <main id='content'></main>
-    <style>${css}</style>
-    <script>${js}</script>
-  `;
+  // Insert files
+  const link = document.createElement('link');
+  link.href = URL.createObjectURL(new Blob([css], { type: 'text/css' }));
+  link.rel = 'stylesheet';
+  document.head.appendChild(link);
+
+  const script = document.createElement('script');
+  script.src = URL.createObjectURL(new Blob([js], { type: 'text/javascript' }));
+  document.head.appendChild(script);
 }
 
 document.addEventListener('deviceready', onDeviceReady, false);
