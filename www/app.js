@@ -98,27 +98,7 @@ async function onDeviceReady() {
     !js && console.error('Missing JS');
     !css && console.error('Missing CSS');
 
-    return document.body.innerHTML = `
-      <div>
-        <h1>An internet connection is required to download needed updates.</h1>
-        <p>Once you have a reliable connection, please restart the app.</p>
-      </div>
-      <style>
-        body {
-          margin: 0;
-        }
-        div {
-          justify-content: center;
-          flex-direction: column;
-          font-family: monospace;
-          align-items: center;
-          text-align: center;
-          height: 100vh;
-          width: 100vw;
-          display: flex;
-        }
-      </style>
-    `;
+    return location.href = 'no-internet.html';
   }
 
   // Download new files if local version does not match remote version
