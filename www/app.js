@@ -65,8 +65,10 @@ async function onDeviceReady() {
 
   window.StatusBar.hide();
 
-  const URL = 'http://192.168.0.11:2080';
-  const DEV = 'http://192.168.0.11:1337/vorlon.js';
+  // const URL = 'http://192.168.0.11:2080';
+  // const DEV = 'http://192.168.0.11:1337/vorlon.js';
+  const URL = 'https://books.xyfir.com';
+  const DEV = false;
 
   // Load development script
   if (DEV) {
