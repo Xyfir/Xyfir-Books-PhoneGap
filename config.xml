@@ -2,7 +2,7 @@
 
 <widget
   xmlns:gap="http://phonegap.com/ns/1.0"
-  version="2.0.7"
+  version="2.0.8"
   xmlns="http://www.w3.org/ns/widgets"
   id="com.xyfir.books"
 >
@@ -18,6 +18,8 @@
   </author>
 
   <!-- Preferences -->
+  <preference name="phonegap-version" value="cli-7.1.0" />
+
   <preference name="permissions" value="none"/>
   <preference name="orientation" value="portrait" />
   <preference name="target-device" value="universal" />
@@ -120,10 +122,6 @@
     <splash width="2732" height="2048" src="res/screens/ios/screen-ipad-landscape-ipadpro.png" />
     <splash width="2048" height="2732" src="res/screens/ios/screen-ipad-portrait-ipadpro.png" />
   </platform>
-
-  <config-file platform="ios" parent="CFBundleShortVersionString">
-    <string>2.0.7</string>
-  </config-file>
 
   <!-- Whitelist the entire network, over HTTP and HTTPS -->
   <allow-navigation href="*" />
