@@ -2,7 +2,7 @@
 
 <widget
   xmlns:gap="http://phonegap.com/ns/1.0"
-  version="2.0.8"
+  version="2.0.9"
   xmlns="http://www.w3.org/ns/widgets"
   id="com.xyfir.books"
 >
@@ -18,7 +18,7 @@
   </author>
 
   <!-- Preferences -->
-  <preference name="phonegap-version" value="cli-7.1.0" />
+  <preference name="phonegap-version" value="cli-8.0.0" />
 
   <preference name="permissions" value="none"/>
   <preference name="orientation" value="portrait" />
